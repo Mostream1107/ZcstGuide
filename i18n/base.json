@@ -1,0 +1,11 @@
+{
+	"ios": {
+		"name": "ZcstGuide"
+	},
+	"android": {
+		"name": "ZcstGuide"
+	},
+	"common": {
+		"name": "ZcstGuide"
+	}
+}
