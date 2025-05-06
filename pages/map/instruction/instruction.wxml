@@ -10,13 +10,13 @@
             </view>
 
             <view class="card-container-container">
-                <text decode="true">&emsp;&emsp;“地点汇总”页展示了各地点类型的地点，可切换地点类型查看。点击可以查看地点介绍，设置为起点或终点并跳转到地图。</text>
+                <text decode="true">&emsp;&emsp;"地点汇总"页展示了各地点类型的地点，可切换地点类型查看。点击可以查看地点介绍，设置为起点或终点并跳转到地图。</text>
 
                 <button class="button" type="primary" bindtap="tosite">
-                    去“地点汇总”页
+                    去"地点汇总"页
                 </button>
 
-                <text decode="true">&emsp;&emsp;“地图”页展示了校园地图，可以在地图上选择地点或者搜索地点进行导航。</text>
+                <text decode="true">&emsp;&emsp;"地图"页展示了校园地图，可以在地图上选择地点或者搜索地点进行导航。</text>
 
                 <view class="card-container-container-instr top">
                     <view class="card-container-container-instr-left">
@@ -58,13 +58,45 @@
                         <text decode="true">点击路线按钮即可进行导航\n点击切换图标即可对调起点和终点</text>
                     </view>
                 </view>
+                
+                <view class="card-container-container-instr">
+                    <view class="card-container-container-instr-left">
+                        历史记录
+                    </view>
+
+                    <view class="card-container-container-instr-right">
+                        <text decode="true">点击历史记录按钮查看最近访问的地点\n系统会自动记录您的访问频率，为您推荐热门地点</text>
+                    </view>
+                </view>
 
                 <view class="bottom">
                     <text decode="true">&emsp;&emsp;你学会了吗，快去试试吧！</text>
 
                     <button class="button" type="primary" bindtap="tomap">
-                        去“地图”页
+                        去"地图"页
                     </button>
+                </view>
+                
+                <!-- LRU历史记录状态 - 仅调试使用 -->
+                <view class="debug-section" wx:if="{{showDebugInfo}}">
+                    <view class="debug-title" bindtap="toggleDebugInfo">历史记录管理状态（点击收起/展开）</view>
+                    <view class="debug-content" wx:if="{{expandDebugInfo}}">
+                        <view class="debug-item">
+                            <text class="debug-label">缓存容量:</text>
+                            <text class="debug-value">{{lruDebugInfo.capacity}}</text>
+                        </view>
+                        <view class="debug-item">
+                            <text class="debug-label">当前记录数:</text>
+                            <text class="debug-value">{{lruDebugInfo.size}}</text>
+                        </view>
+                        <view class="debug-title">热门地点 TOP5:</view>
+                        <view class="debug-popular-list">
+                            <view wx:for="{{lruDebugInfo.popularLocations}}" wx:key="name" class="debug-popular-item">
+                                <text>{{item.name}} ({{item.frequency}}次)</text>
+                            </view>
+                        </view>
+                        <button class="debug-button" type="warn" size="mini" bindtap="clearLRUCache">清空LRU缓存</button>
+                    </view>
                 </view>
 
             </view>

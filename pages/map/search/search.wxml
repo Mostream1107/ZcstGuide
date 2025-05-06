@@ -10,9 +10,7 @@
   <view class="headline">
     <view class="head-headline">
       <image class="icon-right" src="{{history}}"></image>
-
       <view class="headline-size">搜索历史</view>
-
       <image class="icon-right" src="{{delete}}" catchtap="remove"></image>
     </view>
 
@@ -30,19 +28,33 @@
   <view>
     <view class="head-headline">
       <image class="icon-right" src="{{searchIcon}}"></image>
-
       <view class="headline-size">搜索结果</view>
-
-      <image class="icon-right" src="{{}}"></image>
     </view>
 
     <view wx:if="{{result&&result.length>0}}" class="result-list" wx:for="{{result}}" wx:key="*this" data-name="{{item.name}}" data-latitude="{{item.latitude}}" data-longitude="{{item.longitude}}" bindtap="tapback">
       <view class="item">
-        <view>{{item.name}}</view>
-        <view style="color: grey;font-size: small;">{{item.aliases}}</view>
+        <view class="item-name">
+          <text>{{item.name}}</text>
+          <text class="item-match-label" wx:if="{{item.matchType}}">
+            {{item.matchType == 'exact' ? '精确匹配' : 
+              item.matchType == 'alias' ? '别名匹配' : 
+              item.matchType == 'partial' ? '部分匹配' : 
+              item.matchType == 'partialAlias' ? '别名包含' : 
+              item.matchType == 'keyword' ? '关键词匹配' : ''}}
+          </text>
+        </view>
+        <view class="item-info">
+          <view class="info-group" wx:if="{{item.aliases}}">
+            <text class="info-label">别名:</text>
+            <text class="item-alias">{{item.aliases}}</text>
+          </view>
+          <view class="tag-group">
+            <text class="item-category" wx:if="{{item.category}}">{{item.category}}</text>
+          </view>
+        </view>
       </view>
+      <view class="item-arrow">></view>
     </view>
-
   </view>
 
   <view wx:if="{{result&&result.length==0}}" class="middle">

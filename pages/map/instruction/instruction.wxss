@@ -72,3 +72,56 @@ page {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+/* 调试信息区域样式 */
+.debug-section {
+    margin-top: 30px;
+    border: 1px dashed #999;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.debug-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.debug-content {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.debug-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.debug-label {
+    color: #666;
+    font-size: 13px;
+}
+
+.debug-value {
+    font-weight: bold;
+    color: #333;
+    font-size: 13px;
+}
+
+.debug-popular-list {
+    margin: 10px 0;
+}
+
+.debug-popular-item {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.debug-button {
+    margin-top: 10px;
+}

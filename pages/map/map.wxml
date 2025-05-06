@@ -27,6 +27,24 @@
   </view>
 </view>
 
+<!-- 热门地点推荐区域 -->
+<view class="popular-locations" wx:if="{{showPopularLocations && popularLocations.length > 0}}">
+  <view class="popular-header">
+    <text class="popular-title">热门地点</text>
+    <text class="popular-close" bindtap="togglePopularLocations">×</text>
+  </view>
+  <scroll-view scroll-x="true" class="popular-scroll">
+    <view class="popular-items">
+      <view wx:for="{{popularLocations}}" wx:key="id" class="popular-item" bindtap="selectPopularLocation" data-location="{{item}}">
+        <view class="popular-name">{{item.name}}</view>
+        <view class="popular-freq">
+          <text class="popular-visited">访问{{item.frequency}}次</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
 <view class="relative">
   <scroll-view scroll-x="true" scroll-left="{{scrollLeft}}" scroll-with-animation="true">
     <view class="card-bottom-category" style="width: {{site_data.length*75}}px;">
@@ -44,22 +62,30 @@
 
     <!-- 还原按钮 -->
     <view class="location">
-      <image wx:if="{{polyline.length != 0}}" class="img" src="{{restore}}" bindtap="restore" />
+      <view wx:if="{{polyline.length != 0}}" class="instruction" bindtap="restore">
+        <image class="img" src="{{restore}}" bindtap="restore" />
+      </view>
     </view>
 
     <!-- 定位按钮 -->
     <view class="location">
-      <image class="img" src="{{location}}" bindtap="location" />
+      <view class="instruction">
+        <image class="img" src="{{location}}" bindtap="location" />
+      </view>
     </view>
     
     <!-- 使用说明按钮 -->
     <view class="location">
-      <image class="img" src="{{use}}" bindtap="toinstruction" />
+      <view class="instruction">
+        <image class="img" src="{{use}}" bindtap="toinstruction" />
+      </view>
     </view>
-    
+
     <!-- 历史记录按钮 -->
     <view class="location">
-      <text class="history-icon" bindtap="showHistory">📋</text>
+      <view class="instruction" bindtap="showHistory">
+        <text class="history-icon">📋</text>
+      </view>
     </view>
 
   </view>
@@ -83,8 +109,6 @@
     </view>
   </view>
   
-  <!-- 底部历史记录按钮 -->
-
 </view>
 
 <mp-dialog title="{{card.name}}" show="{{dialogShow_site}}" bindbuttontap="mapmarker_choose" buttons="{{buttons}}">
@@ -117,16 +141,21 @@
 
 <!-- 历史记录对话框 -->
 <mp-dialog title="历史浏览记录" show="{{dialogShow_history}}" bindbuttontap="handleHistoryDialog" buttons="{{historyButtons}}">
-  <!-- 标签页切换 -->
   <view class="history-tabs">
-    <view class="history-tab {{activeHistoryTab === 'locations' ? 'active-tab' : ''}}" bindtap="switchHistoryTab" data-tab="locations">地点历史</view>
-    <view class="history-tab {{activeHistoryTab === 'routes' ? 'active-tab' : ''}}" bindtap="switchHistoryTab" data-tab="routes">路线历史</view>
+    <view class="history-tab {{activeHistoryTab === 'locations' ? 'active-tab' : ''}}" 
+          bindtap="switchHistoryTab" data-tab="locations">
+      地点历史
+    </view>
+    <view class="history-tab {{activeHistoryTab === 'routes' ? 'active-tab' : ''}}" 
+          bindtap="switchHistoryTab" data-tab="routes">
+      路线历史
+    </view>
   </view>
-
-  <!-- 地点历史记录列表 -->
+  
+  <!-- 地点历史标签页内容 -->
   <view class="history-list" wx:if="{{activeHistoryTab === 'locations'}}">
     <view wx:if="{{historyList.length === 0}}" class="history-empty">
-      暂无地点浏览记录
+      暂无浏览记录
     </view>
     <view wx:for="{{historyList}}" wx:key="id" class="history-item" bindtap="selectHistoryItem" data-index="{{index}}">
       <view class="history-item-name">{{item.name}}</view>
@@ -136,11 +165,11 @@
       </view>
     </view>
   </view>
-
-  <!-- 路线历史记录列表 -->
+  
+  <!-- 路线历史标签页内容 -->
   <view class="history-list" wx:if="{{activeHistoryTab === 'routes'}}">
     <view wx:if="{{routeHistoryList.length === 0}}" class="history-empty">
-      暂无路线浏览记录
+      暂无路线记录
     </view>
     <view wx:for="{{routeHistoryList}}" wx:key="id" class="history-item route-item" bindtap="selectRouteHistoryItem" data-index="{{index}}">
       <view class="route-item-path">

@@ -3,6 +3,9 @@ var map = require('../../data/map')
 var media = require('../../data/media')
 const app = getApp()
 
+// 引入LRU历史记录管理模块
+var lruHistory = require('../../data/lru-history')
+
 // 引入SDK核心类
 var QQMapWX = require('../../libs/qqmap-wx-jssdk.min')
 
@@ -111,6 +114,10 @@ Page({
         historyList: [], // 地点历史记录列表
         routeHistoryList: [], // 路线历史记录列表
         activeHistoryTab: 'locations', // 当前激活的历史记录标签页('locations'或'routes')
+
+        // 热门地点推荐相关
+        showPopularLocations: false, // 是否显示热门地点推荐
+        popularLocations: [], // 热门地点列表
     },
 
     /**
@@ -133,6 +140,9 @@ Page({
 
         this.map()
         this.location()
+
+        // 加载热门地点
+        this.loadPopularLocations()
     },
 
     /**
@@ -175,6 +185,9 @@ Page({
 
         // 加载历史记录
         this.loadHistoryList();
+
+        // 更新热门地点
+        this.loadPopularLocations();
     },
 
     // 加载历史记录
@@ -183,6 +196,10 @@ Page({
         const historyManager = app.globalData.historyManager;
         if (historyManager) {
             const historyList = historyManager.getAllHistory();
+
+            // 确保LRU缓存和普通历史记录的同步
+            this.syncHistoryWithLRU(historyList);
+
             this.setData({
                 historyList: historyList
             });
@@ -195,6 +212,18 @@ Page({
             this.setData({
                 routeHistoryList: routeHistoryList
             });
+        }
+    },
+
+    // 同步普通历史记录与LRU缓存
+    syncHistoryWithLRU(historyList) {
+        if (!historyList || historyList.length === 0) return;
+
+        // 将普通历史记录中的项目也添加到LRU缓存中，但不增加频率计数
+        for (const item of historyList) {
+            if (item && item.name) {
+                lruHistory.addToHistory(item, false);
+            }
         }
     },
 
@@ -221,11 +250,22 @@ Page({
         if (index === 0) {
             // 清空历史
             if (this.data.activeHistoryTab === 'locations') {
-                // 清空地点历史
+                // 清空地点历史（同时清空LRU缓存和普通历史记录）
+                lruHistory.clearHistory();
                 app.globalData.historyManager.clearHistory();
                 this.setData({
-                    historyList: []
+                    historyList: [],
+                    popularLocations: [],
+                    showPopularLocations: false
                 });
+
+                // 保存修改后的状态
+                wx.setStorageSync('lru_history_cache', []);
+                wx.setStorageSync('lru_location_details', []);
+                wx.setStorageSync('lru_frequency_map', []);
+                wx.setStorageSync('lru_visit_time', []);
+                wx.setStorageSync('location_history', []);
+
                 wx.showToast({
                     title: '地点历史已清空',
                     icon: 'success'
@@ -236,6 +276,10 @@ Page({
                 this.setData({
                     routeHistoryList: []
                 });
+
+                // 保存修改后的状态
+                wx.setStorageSync('route_history', []);
+
                 wx.showToast({
                     title: '路线历史已清空',
                     icon: 'success'
@@ -454,12 +498,21 @@ Page({
 
             // 添加到历史记录
             if (site && site.name && site !== this.data.default_point) {
+                // 添加地点类别信息
+                site.category = this.data.site_data[this.data.category].name;
+
+                // 使用LRU历史记录管理模块记录访问 - 增加频率计数
+                lruHistory.addToHistory(site, true);
+
+                // 同时使用原始历史记录管理器 - 不增加频率计数
                 const historyManager = app.globalData.historyManager;
                 if (historyManager) {
-                    // 添加地点类别信息
-                    site.category = this.data.site_data[this.data.category].name;
                     historyManager.addToHistory(site);
                 }
+
+                // 更新热门地点推荐和历史记录列表
+                this.loadPopularLocations();
+                this.loadHistoryList();
             }
         }
     },
@@ -517,8 +570,7 @@ Page({
             })
 
             // 设为终点时，将地点添加到历史记录
-            const historyManager = app.globalData.historyManager;
-            if (historyManager) {
+            if (card && card.name) {
                 // 尝试获取地点的更多信息
                 const categoryInfo = this.getCategoryInfoForLocation(card);
                 if (categoryInfo) {
@@ -528,7 +580,19 @@ Page({
                         card.desc = categoryInfo.siteInfo.desc;
                     }
                 }
-                historyManager.addToHistory(card);
+
+                // 使用LRU历史记录管理模块记录访问 - 增加频率计数
+                lruHistory.addToHistory(card, true);
+
+                // 同时使用原始历史记录管理器 - 不增加频率计数
+                const historyManager = app.globalData.historyManager;
+                if (historyManager) {
+                    historyManager.addToHistory(card);
+                }
+
+                // 更新热门地点推荐和历史记录列表
+                this.loadPopularLocations();
+                this.loadHistoryList();
             }
         }
     },
@@ -768,8 +832,7 @@ Page({
         var _this = this;
 
         // 将导航终点添加到地点历史记录
-        const historyManager = app.globalData.historyManager;
-        if (historyManager && end && end.name) {
+        if (end && end.name) {
             // 尝试获取地点的更多信息
             const categoryInfo = this.getCategoryInfoForLocation(end);
             if (categoryInfo) {
@@ -779,7 +842,19 @@ Page({
                     end.desc = categoryInfo.siteInfo.desc;
                 }
             }
-            historyManager.addToHistory(end);
+
+            // 使用LRU历史记录管理模块记录访问 - 增加频率计数
+            lruHistory.addToHistory(end, true);
+
+            // 同时使用原始历史记录管理器 - 不增加频率计数
+            const historyManager = app.globalData.historyManager;
+            if (historyManager) {
+                historyManager.addToHistory(end);
+            }
+
+            // 更新热门地点推荐和历史记录列表
+            this.loadPopularLocations();
+            this.loadHistoryList();
         }
 
         // 将起点和终点对添加到路线历史记录
@@ -800,7 +875,7 @@ Page({
             routeHistoryManager.addRouteToHistory(start, end);
         }
 
-        // 原有的导航处理代码
+        //原有的导航处理代码
         //调用距离计算接口
         qqmapsdk.direction({
             mode: 'walking', //可选值：'driving'（驾车）、'walking'（步行）、'bicycling'（骑行），不填默认：'driving',可不填
@@ -926,5 +1001,52 @@ Page({
                 })
             }
         })
-    }
+    },
+
+    // 加载热门地点推荐
+    loadPopularLocations() {
+        try {
+            // 获取热门地点列表（从LRU缓存中获取）
+            const popularLocations = lruHistory.getPopularLocations(5);
+
+            // 如果有热门地点，显示推荐区域
+            if (popularLocations && popularLocations.length > 0) {
+                this.setData({
+                    popularLocations: popularLocations,
+                    showPopularLocations: true
+                });
+            } else {
+                this.setData({
+                    showPopularLocations: false
+                });
+            }
+        } catch (error) {
+            console.error('加载热门地点失败:', error);
+            this.setData({
+                showPopularLocations: false
+            });
+        }
+    },
+
+    // 切换热门地点区域显示状态
+    togglePopularLocations() {
+        this.setData({
+            showPopularLocations: !this.data.showPopularLocations
+        });
+    },
+
+    // 选择热门地点
+    selectPopularLocation(e) {
+        const location = e.currentTarget.dataset.location;
+        if (location) {
+            // 显示地点卡片
+            this.setData({
+                dialogShow_site: true,
+                card: location
+            });
+
+            // 更新LRU缓存中的访问频率
+            lruHistory.addToHistory(location);
+        }
+    },
 })

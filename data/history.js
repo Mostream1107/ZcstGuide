@@ -26,13 +26,8 @@ module.exports = {
             // 为地点添加唯一标识（如果没有id）
             const locationId = location.id || `${location.name}_${location.latitude}_${location.longitude}`;
 
-            // 检查地点是否已在历史记录中
-            const existingIndex = this.historyQueue.findIndex(item =>
-                item.id === locationId ||
-                (item.name === location.name &&
-                    item.latitude === location.latitude &&
-                    item.longitude === location.longitude)
-            );
+            // 检查地点是否已在历史记录中 - 通过名称匹配即可
+            const existingIndex = this.historyQueue.findIndex(item => item.name === location.name);
 
             // 如果已存在，先移除旧记录
             if (existingIndex !== -1) {

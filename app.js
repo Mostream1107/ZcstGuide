@@ -1,5 +1,6 @@
 // app.js
 const history = require('./data/history');
+const lruHistory = require('./data/lru-history');
 
 App({
     /**
@@ -13,6 +14,10 @@ App({
         // 初始化路线历史记录管理器
         this.globalData.routeHistoryManager = new history.RouteHistoryManager();
         this.globalData.routeHistoryManager.loadFromStorage();
+
+        // 初始化LRU历史记录缓存
+        // lruHistory模块自带初始化功能，无需额外初始化
+        this.globalData.lruHistoryCache = lruHistory.historyCache;
     },
 
     /**
@@ -21,6 +26,7 @@ App({
     globalData: {
         userInfo: null,
         historyManager: null, // 历史记录管理器实例
-        routeHistoryManager: null // 路线历史记录管理器实例
+        routeHistoryManager: null, // 路线历史记录管理器实例
+        lruHistoryCache: null // LRU历史记录缓存实例
     }
 })

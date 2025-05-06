@@ -388,3 +388,74 @@
   display: flex;
   gap: 10rpx;
 }
+
+/* 热门地点推荐区域样式 */
+.popular-locations {
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 0 10px 10px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.popular-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.popular-title {
+  font-weight: bold;
+  color: #333;
+  font-size: 15px;
+}
+
+.popular-close {
+  font-size: 20px;
+  color: #999;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.popular-scroll {
+  padding: 10px 0;
+  white-space: nowrap;
+}
+
+.popular-items {
+  display: inline-flex;
+  padding: 0 10px;
+}
+
+.popular-item {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-right: 10px;
+  min-width: 120px;
+  display: inline-block;
+}
+
+.popular-name {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popular-freq {
+  display: flex;
+  align-items: center;
+}
+
+.popular-visited {
+  font-size: 12px;
+  color: #888;
+}
