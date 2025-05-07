@@ -27,24 +27,6 @@
   </view>
 </view>
 
-<!-- 热门地点推荐区域 -->
-<view class="popular-locations" wx:if="{{showPopularLocations && popularLocations.length > 0}}">
-  <view class="popular-header">
-    <text class="popular-title">热门地点</text>
-    <text class="popular-close" bindtap="togglePopularLocations">×</text>
-  </view>
-  <scroll-view scroll-x="true" class="popular-scroll">
-    <view class="popular-items">
-      <view wx:for="{{popularLocations}}" wx:key="id" class="popular-item" bindtap="selectPopularLocation" data-location="{{item}}">
-        <view class="popular-name">{{item.name}}</view>
-        <view class="popular-freq">
-          <text class="popular-visited">访问{{item.frequency}}次</text>
-        </view>
-      </view>
-    </view>
-  </scroll-view>
-</view>
-
 <view class="relative">
   <scroll-view scroll-x="true" scroll-left="{{scrollLeft}}" scroll-with-animation="true">
     <view class="card-bottom-category" style="width: {{site_data.length*75}}px;">

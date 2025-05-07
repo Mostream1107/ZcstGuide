@@ -328,3 +328,36 @@
   mix-blend-mode: screen;
   border-radius: 10px;
 }
+
+/* 天气加载状态 */
+.weather-loading {
+  height: 106px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+}
+
+/* 天气错误状态 */
+.weather-error {
+  height: 106px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+}
+
+.retry-button {
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 16px;
+}
+
+.retry-button:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}

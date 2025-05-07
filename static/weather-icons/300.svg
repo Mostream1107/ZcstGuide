@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>小雨</title>
+    <g id="小雨" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M40,18 C44.4,18 48,14.4 48,10 C48,5.6 44.4,2 40,2 C39.6,2 39.2,2 38.8,2.1 C37.2,-2.3 33,-5.4 28,-5.4 C22,-5.4 17.2,-0.6 17.2,5.4 C17.2,6 17.3,6.7 17.4,7.3 C17,7.2 16.5,7.2 16,7.2 C11.6,7.2 8,10.8 8,15.2 C8,19.6 11.6,23.2 16,23.2 L40,23.2 L40,18 Z" id="云" fill="#CCCCCC"></path>
+        <path d="M20,28 L16,36" id="雨点1" stroke="#4D95E8" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M28,28 L24,36" id="雨点2" stroke="#4D95E8" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M36,28 L32,36" id="雨点3" stroke="#4D95E8" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M24,36 L22,40" id="雨点4" stroke="#4D95E8" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M32,36 L30,40" id="雨点5" stroke="#4D95E8" stroke-width="2" stroke-linecap="round"></path>
+    </g>
+</svg> 

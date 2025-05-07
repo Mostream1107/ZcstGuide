@@ -6,6 +6,65 @@
   </view>
 </view>
 
+<!-- 推荐区域 -->
+<view class="recommendations-container">
+  
+  <!-- 基于时间的推荐区域 -->
+  <view class="recommendation-section time-based-recommendations" wx:if="{{showTimeBasedRecommendations && timeBasedRecommendations.length > 0}}">
+    <view class="recommendation-header">
+      <text class="recommendation-title">{{timePeriodText}}</text>
+      <text class="recommendation-close" bindtap="toggleTimeBasedRecommendations">×</text>
+    </view>
+    <scroll-view scroll-x="true" class="recommendation-scroll">
+      <view class="recommendation-items">
+        <view wx:for="{{timeBasedRecommendations}}" wx:key="id" class="recommendation-item time-item" bindtap="selectTimeBasedRecommendation" data-location="{{item}}">
+          <view class="recommendation-category">{{item.category || '未分类'}}</view>
+          <view class="recommendation-name">{{item.name}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 个性化推荐区域 -->
+  <view class="recommendation-section personalized-recommendations" wx:if="{{showPersonalizedRecommendations && personalizedRecommendations.length > 0}}">
+    <view class="recommendation-header">
+      <text class="recommendation-title">猜你想去</text>
+      <view class="recommendation-actions">
+        <text class="recommendation-refresh" bindtap="refreshRecommendations">🔄</text>
+        <text class="recommendation-close" bindtap="togglePersonalizedRecommendations">×</text>
+      </view>
+    </view>
+    <scroll-view scroll-x="true" class="recommendation-scroll">
+      <view class="recommendation-items">
+        <view wx:for="{{personalizedRecommendations}}" wx:key="id" class="recommendation-item" bindtap="selectPersonalizedRecommendation" data-location="{{item}}">
+          <view class="recommendation-category">{{item.category || '未分类'}}</view>
+          <view class="recommendation-name">{{item.name}}</view>
+          <view class="recommendation-score" wx:if="{{item.recommendScore}}">匹配度: {{item.recommendScore.toFixed(1)}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 热门地点推荐区域 -->
+  <view class="recommendation-section popular-locations" wx:if="{{showPopularLocations && popularLocations.length > 0}}">
+    <view class="recommendation-header">
+      <text class="recommendation-title">热门地点</text>
+      <text class="recommendation-close" bindtap="togglePopularLocations">×</text>
+    </view>
+    <scroll-view scroll-x="true" class="recommendation-scroll">
+      <view class="recommendation-items">
+        <view wx:for="{{popularLocations}}" wx:key="id" class="recommendation-item popular-item" bindtap="selectPopularLocation" data-location="{{item}}">
+          <view class="recommendation-category">{{item.category || '未分类'}}</view>
+          <view class="recommendation-name">{{item.name}}</view>
+          <view class="popular-freq">
+            <text class="popular-visited">访问{{item.frequency}}次</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
 <view class="read-in">
   <view class="headline">
     <view class="head-headline">

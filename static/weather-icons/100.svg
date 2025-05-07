@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>晴天</title>
+    <g id="晴天" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="太阳" fill="#FFD800" cx="24" cy="24" r="16"></circle>
+        <path d="M24,2 L24,8" id="上线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M24,40 L24,46" id="下线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M2,24 L8,24" id="左线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M40,24 L46,24" id="右线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M8.9,8.9 L13.3,13.3" id="左上线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M34.7,34.7 L39.1,39.1" id="右下线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M8.9,39.1 L13.3,34.7" id="左下线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M34.7,13.3 L39.1,8.9" id="右上线" stroke="#FFD800" stroke-width="2" stroke-linecap="round"></path>
+    </g>
+</svg> 

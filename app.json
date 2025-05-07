@@ -70,5 +70,8 @@
             "version": "2.1.4",
             "provider": "wx386c038238531f87"
         }
+    },
+    "networkTimeout": {
+        "request": 10000
     }
 }

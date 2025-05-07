@@ -42,8 +42,17 @@
     },
     "compileType": "miniprogram",
     "libVersion": "3.8.0",
-    "appid": "wxdebeb8c89ecb52df",
+    "appid": "your_app_id_here",
     "projectname": "ZcstGuide",
+    "debugOptions": {
+        "hidedInDevtools": []
+    },
+    "scripts": {},
+    "staticServerOptions": {
+        "baseURL": "",
+        "servePath": ""
+    },
+    "isGameTourist": false,
     "condition": {
         "search": {
             "list": []
@@ -63,13 +72,5 @@
         "miniprogram": {
             "list": []
         }
-    },
-    "packOptions": {
-        "ignore": [],
-        "include": []
-    },
-    "editorSetting": {
-        "tabIndent": "insertSpaces",
-        "tabSize": 4
     }
-}
+} 

@@ -3,6 +3,12 @@ var map = require('../../../data/map')
 var media = require('../../../data/media')
 var searchIndex = require('../../../data/search-index') // 引入搜索索引模块
 
+// 引入LRU历史记录管理模块
+var lruHistory = require('../../../data/lru-history')
+
+// 引入个性化推荐系统模块
+var recommendation = require('../../../data/recommendation-system')
+
 Page({
 
     /**
@@ -21,6 +27,22 @@ Page({
         delete: media.delete,
         searchIcon: media.searchIcon,
         history: media.history,
+
+        // 热门地点相关
+        showPopularLocations: true, // 默认显示热门地点
+        popularLocations: [], // 热门地点列表
+
+        // 个性化推荐相关
+        showPersonalizedRecommendations: true, // 默认显示个性化推荐
+        personalizedRecommendations: [], // 个性化推荐地点列表
+
+        // 基于时间的推荐相关
+        showTimeBasedRecommendations: true, // 默认显示基于时间的推荐
+        timeBasedRecommendations: [], // 基于时间的推荐地点列表
+
+        // 推荐系统相关
+        currentTimePeriod: '', // 当前时间段
+        timePeriodText: '', // 时间段中文描述
     },
 
     /**
@@ -45,6 +67,18 @@ Page({
                 })
             }
         })
+
+        // 加载热门地点
+        this.loadPopularLocations()
+
+        // 加载个性化推荐
+        this.loadPersonalizedRecommendations()
+
+        // 加载基于时间的推荐
+        this.loadTimeBasedRecommendations()
+
+        // 更新当前时间段
+        this.updateTimePeriod()
     },
 
     /**
@@ -58,7 +92,14 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
+        // 加载热门地点
+        this.loadPopularLocations()
 
+        // 加载个性化推荐
+        this.loadPersonalizedRecommendations()
+
+        // 加载基于时间的推荐
+        this.loadTimeBasedRecommendations()
     },
 
     /**
@@ -199,33 +240,268 @@ Page({
             });
         } else {
             prevPage.setData({
-                end: data
+                end: data,
             });
         }
-        wx.navigateBack({})
+        wx.setStorageSync(search_id == 1 ? 'start' : 'end', data)
+        wx.navigateBack({
+            delta: 1
+        })
     },
 
-    // 清除搜索历史记录
-    remove: function() {
-        var _this = this
+    remove() {
+        var that = this;
         wx.showModal({
-            content: '确认清除所有历史记录?',
-            success: function(res) {
+            title: '提示',
+            content: '确认清空全部搜索历史吗？',
+            success(res) {
                 if (res.confirm) {
-                    wx: wx.removeStorage({
+                    wx.removeStorage({
                         key: 'historyStorage',
-                        success: function(res) {
-                            _this.setData({
-                                historyStorage: []
+                        success(res) {
+                            console.log('移除成功')
+                            that.setData({
+                                historyStorage: [],
                             })
-                            wx.setStorageSync("historyStorage", [])
-                        },
+                        }
                     })
                 }
-                else {
-                    console.log("点击取消")
-                }
-            },
+            }
         })
+    },
+
+    // 加载热门地点推荐
+    loadPopularLocations() {
+        try {
+            // 获取热门地点列表（从LRU缓存中获取）
+            const popularLocations = lruHistory.getPopularLocations(5);
+
+            // 如果有热门地点，显示推荐区域
+            if (popularLocations && popularLocations.length > 0) {
+                this.setData({
+                    popularLocations: popularLocations,
+                    showPopularLocations: true
+                });
+            } else {
+                this.setData({
+                    showPopularLocations: false
+                });
+            }
+        } catch (error) {
+            console.error('加载热门地点失败:', error);
+            this.setData({
+                showPopularLocations: false
+            });
+        }
+    },
+
+    // 加载个性化推荐地点
+    loadPersonalizedRecommendations() {
+        try {
+            // 获取历史记录
+            const historyList = lruHistory.getHistoryList();
+
+            // 获取所有地点数据
+            const allLocations = this.getAllLocationData();
+
+            // 获取个性化推荐
+            const personalizedRecommendations = recommendation.getPersonalizedRecommendations(allLocations, historyList, 3);
+
+            // 如果有推荐结果，显示推荐区域
+            if (personalizedRecommendations && personalizedRecommendations.length > 0) {
+                this.setData({
+                    personalizedRecommendations: personalizedRecommendations,
+                    showPersonalizedRecommendations: true
+                });
+            } else {
+                this.setData({
+                    showPersonalizedRecommendations: false
+                });
+            }
+        } catch (error) {
+            console.error('加载个性化推荐失败:', error);
+            this.setData({
+                showPersonalizedRecommendations: false
+            });
+        }
+    },
+
+    // 加载基于时间的推荐地点
+    loadTimeBasedRecommendations() {
+        try {
+            // 获取所有地点数据
+            const allLocations = this.getAllLocationData();
+
+            // 获取基于时间的推荐
+            const timeBasedRecommendations = recommendation.getTimeBasedRecommendations(allLocations, 3);
+
+            // 如果有推荐结果，显示推荐区域
+            if (timeBasedRecommendations && timeBasedRecommendations.length > 0) {
+                this.setData({
+                    timeBasedRecommendations: timeBasedRecommendations,
+                    showTimeBasedRecommendations: true
+                });
+            } else {
+                this.setData({
+                    showTimeBasedRecommendations: false
+                });
+            }
+        } catch (error) {
+            console.error('加载基于时间的推荐失败:', error);
+            this.setData({
+                showTimeBasedRecommendations: false
+            });
+        }
+    },
+
+    // 收集所有地点数据
+    getAllLocationData() {
+        const allLocations = [];
+
+        // 遍历所有地点类别
+        this.data.site_data.forEach(category => {
+            if (category && category.list && Array.isArray(category.list)) {
+                // 为每个地点添加类别信息
+                const locationsWithCategory = category.list.map(loc => ({
+                    ...loc,
+                    category: category.name
+                }));
+
+                // 添加到总地点列表
+                allLocations.push(...locationsWithCategory);
+            }
+        });
+
+        return allLocations;
+    },
+
+    // 更新当前时间段及其文本描述
+    updateTimePeriod() {
+        const hour = new Date().getHours();
+        let period = '';
+        let text = '';
+
+        if (hour >= 6 && hour < 9) {
+            period = 'morning';
+            text = '早上好！开始新的一天';
+        } else if (hour >= 9 && hour < 14) {
+            period = 'noon';
+            text = '中午好！该吃午饭了';
+        } else if (hour >= 14 && hour < 18) {
+            period = 'afternoon';
+            text = '下午好！学习工作加油';
+        } else if (hour >= 18 && hour < 22) {
+            period = 'evening';
+            text = '晚上好！享受美好夜晚';
+        } else {
+            period = 'night';
+            text = '夜深了，注意休息';
+        }
+
+        this.setData({
+            currentTimePeriod: period,
+            timePeriodText: text
+        });
+    },
+
+    // 切换热门地点区域显示状态
+    togglePopularLocations() {
+        this.setData({
+            showPopularLocations: !this.data.showPopularLocations
+        });
+    },
+
+    // 切换个性化推荐区域显示状态
+    togglePersonalizedRecommendations() {
+        this.setData({
+            showPersonalizedRecommendations: !this.data.showPersonalizedRecommendations
+        });
+    },
+
+    // 切换基于时间的推荐区域显示状态
+    toggleTimeBasedRecommendations() {
+        this.setData({
+            showTimeBasedRecommendations: !this.data.showTimeBasedRecommendations
+        });
+    },
+
+    // 选择热门地点
+    selectPopularLocation(e) {
+        const location = e.currentTarget.dataset.location;
+        if (location) {
+            // 更新LRU缓存中的访问频率
+            lruHistory.addToHistory(location);
+
+            // 直接返回并设置为目标地点
+            this.setSelectedLocation(location);
+        }
+    },
+
+    // 选择个性化推荐地点
+    selectPersonalizedRecommendation(e) {
+        const location = e.currentTarget.dataset.location;
+        if (location) {
+            // 更新LRU缓存中的访问频率
+            lruHistory.addToHistory(location);
+
+            // 直接返回并设置为目标地点
+            this.setSelectedLocation(location);
+        }
+    },
+
+    // 选择基于时间的推荐地点
+    selectTimeBasedRecommendation(e) {
+        const location = e.currentTarget.dataset.location;
+        if (location) {
+            // 更新LRU缓存中的访问频率
+            lruHistory.addToHistory(location);
+
+            // 直接返回并设置为目标地点
+            this.setSelectedLocation(location);
+        }
+    },
+
+    // 设置选中的地点并返回
+    setSelectedLocation(location) {
+        const data = {
+            name: location.name,
+            latitude: location.latitude,
+            longitude: location.longitude
+        };
+
+        let search_id = this.data.search_id;
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2]; // 上一个页面
+
+        if (search_id == 1) {
+            prevPage.setData({
+                start: data,
+            });
+        } else {
+            prevPage.setData({
+                end: data,
+            });
+        }
+
+        wx.setStorageSync(search_id == 1 ? 'start' : 'end', data);
+        wx.navigateBack({
+            delta: 1
+        });
+    },
+
+    // 刷新推荐数据
+    refreshRecommendations() {
+        // 重置推荐状态
+        recommendation.resetRecommendationState();
+
+        // 重新加载各类推荐
+        this.loadPersonalizedRecommendations();
+        this.loadTimeBasedRecommendations();
+
+        wx.showToast({
+            title: '推荐已更新',
+            icon: 'success',
+            duration: 1500
+        });
     }
 })

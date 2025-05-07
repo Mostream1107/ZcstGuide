@@ -36,6 +36,212 @@
     opacity: 0.9;
 }
 
+/* 推荐区域样式 */
+.recommendations-container {
+    margin-bottom: 10px;
+    padding: 0 2px;
+}
+
+.recommendation-section {
+    margin-bottom: 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.recommendation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.recommendation-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.recommendation-actions {
+    display: flex;
+    align-items: center;
+}
+
+.recommendation-refresh {
+    font-size: 16px;
+    margin-right: 12px;
+    color: #666;
+    padding: 3px;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recommendation-refresh:active {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.recommendation-close {
+    font-size: 22px;
+    color: #999;
+    padding: 0 6px;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.recommendation-close:active {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.recommendation-scroll {
+    height: 105px;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.recommendation-items {
+    display: flex;
+    padding: 5px 10px;
+}
+
+.recommendation-item {
+    min-width: 160px;
+    height: auto;
+    min-height: 80px;
+    margin-right: 15px;
+    padding: 12px 15px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+    position: relative;
+    border-left-width: 4px;
+}
+
+.recommendation-item:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.recommendation-category {
+    font-size: 12px;
+    color: #666;
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 3px 8px;
+    border-radius: 6px;
+    align-self: flex-start;
+    margin-bottom: 5px;
+    letter-spacing: 0.3px;
+}
+
+.recommendation-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 6px 0;
+    line-height: 1.4;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 44px;
+}
+
+.recommendation-score {
+    font-size: 12px;
+    color: #5c6bc0;
+    align-self: flex-end;
+    margin-top: 5px;
+    background-color: rgba(92, 107, 192, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 个性化推荐样式 */
+.personalized-recommendations {
+    background-color: rgba(244, 249, 255, 0.95);
+}
+
+.personalized-recommendations .recommendation-item {
+    background-color: #f0f7ff;
+    border-left: 4px solid #4a89dc;
+    transition: all 0.25s ease;
+}
+
+.personalized-recommendations .recommendation-item:active {
+    transform: translateY(2px) scale(0.98);
+    background-color: #e5f0ff;
+}
+
+/* 热门地点样式 */
+.popular-locations {
+    background-color: rgba(250, 250, 255, 0.95);
+}
+
+.popular-locations .recommendation-item {
+    background-color: #f5f6fa;
+    border-left: 4px solid #5d6d7e;
+    transition: all 0.25s ease;
+}
+
+.popular-locations .recommendation-item:active {
+    transform: translateY(2px) scale(0.98);
+    background-color: #eef0f5;
+}
+
+.popular-freq {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.popular-visited {
+    background-color: #e8eaf6;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 基于时间的推荐样式 */
+.time-based-recommendations {
+    background-color: rgba(250, 248, 255, 0.95);
+}
+
+.time-item {
+    background-color: #f6f3ff;
+    border-left: 4px solid #9c88ff;
+    transition: all 0.25s ease;
+}
+
+.time-item:active {
+    transform: translateY(2px) scale(0.98);
+    background-color: #efe9ff;
+}
+
+.time-based-recommendations .recommendation-title {
+    color: #7b6bd6;
+}
+
 .result {
     margin: 15px;
 }
@@ -199,31 +405,38 @@
 }
 
 .headline-size {
-    margin-left: 15rpx;
-    flex: 1;
+    margin-left: 10rpx;
+    margin-right: auto;
 }
 
-/* 内容部分 */
+/* 最近搜索关键词 */
 .lately-main {
-    margin-top: 10rpx;
-    overflow: hidden;
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    margin-top: 15rpx;
 }
 
-.lately-main .chunk {
-    display: inline-block;
-    font-size: 24rpx;
-    line-height: 1.6;
-    padding: 8rpx 20rpx;
-    background: #f7f7f7;
-    margin-right: 15rpx;
-    margin-bottom: 20rpx;
-    border: 1px solid #ebebeb;
-    border-radius: 15rpx;
-    color: #666666;
+.chunk {
+    color: #333;
+    background-color: white;
+    font-size: 14px;
+    border-radius: 15px;
+    padding: 5px 12px;
+    margin: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.lately-main .chunk:active {
+.chunk:active {
     background-color: #f0f0f0;
+}
+
+/* 小屏幕设备优化 */
+@media screen and (max-width: 350px) {
+    .recommendation-item {
+        min-width: 140px;
+    }
+  
+    .recommendation-scroll {
+        height: 110px;
+    }
 }

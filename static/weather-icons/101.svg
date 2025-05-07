@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>多云</title>
+    <g id="多云" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="太阳" fill="#FFD800" cx="16" cy="16" r="10"></circle>
+        <path d="M40,36 C44.4,36 48,32.4 48,28 C48,23.6 44.4,20 40,20 C39.6,20 39.2,20 38.8,20.1 C37.2,15.7 33,12.6 28,12.6 C22,12.6 17.2,17.4 17.2,23.4 C17.2,24 17.3,24.7 17.4,25.3 C17,25.2 16.5,25.2 16,25.2 C11.6,25.2 8,28.8 8,33.2 C8,37.6 11.6,41.2 16,41.2 L40,41.2 L40,36 Z" id="云" fill="#FFFFFF"></path>
+    </g>
+</svg> 

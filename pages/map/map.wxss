@@ -391,71 +391,174 @@
 
 /* 热门地点推荐区域样式 */
 .popular-locations {
-  background-color: #fff;
-  border-radius: 10px;
-  margin: 0 10px 10px 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1px;
+  z-index: 100;
 }
 
 .popular-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
 }
 
 .popular-title {
   font-weight: bold;
+  font-size: 14px;
   color: #333;
-  font-size: 15px;
 }
 
 .popular-close {
-  font-size: 20px;
+  font-size: 18px;
   color: #999;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
+  padding: 0 5px;
 }
 
 .popular-scroll {
-  padding: 10px 0;
-  white-space: nowrap;
+  height: 75px;
+  width: 100%;
 }
 
 .popular-items {
-  display: inline-flex;
-  padding: 0 10px;
+  display: flex;
+  padding: 10px;
 }
 
 .popular-item {
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  padding: 10px 15px;
+  min-width: 110px;
+  height: 55px;
   margin-right: 10px;
-  min-width: 120px;
-  display: inline-block;
+  padding: 8px 12px;
+  background-color: #f5f6fa;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .popular-name {
-  font-weight: bold;
   font-size: 14px;
-  margin-bottom: 5px;
+  font-weight: 500;
   color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .popular-freq {
+  font-size: 12px;
+  color: #888;
+}
+
+.popular-visited {
+  background-color: #e8eaf6;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* 个性化推荐区域样式 */
+.recommendation-section {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1px;
+  z-index: 100;
+}
+
+.recommendation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.recommendation-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.recommendation-actions {
   display: flex;
   align-items: center;
 }
 
-.popular-visited {
-  font-size: 12px;
+.recommendation-refresh {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #666;
+}
+
+.recommendation-close {
+  font-size: 18px;
+  color: #999;
+  padding: 0 5px;
+}
+
+.recommendation-scroll {
+  height: 85px;
+  width: 100%;
+}
+
+.recommendation-items {
+  display: flex;
+  padding: 10px;
+}
+
+.recommendation-item {
+  min-width: 120px;
+  height: 65px;
+  margin-right: 12px;
+  padding: 8px 12px;
+  background-color: #f0f7ff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recommendation-category {
+  font-size: 11px;
   color: #888;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 5px;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+
+.recommendation-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin: 3px 0;
+}
+
+.recommendation-score {
+  font-size: 11px;
+  color: #5c6bc0;
+  align-self: flex-end;
+}
+
+/* 基于时间的推荐区域样式 */
+.time-based-recommendations {
+  background-color: rgba(250, 250, 255, 0.95);
+}
+
+.time-item {
+  background-color: #f6f3ff;
+  border-left: 4px solid #9c88ff;
+}
+
+/* 小屏幕设备优化 */
+@media screen and (max-width: 350px) {
+  .recommendation-item, .popular-item {
+    min-width: 100px;
+  }
+  
+  .recommendation-scroll, .popular-scroll {
+    height: 80px;
+  }
 }

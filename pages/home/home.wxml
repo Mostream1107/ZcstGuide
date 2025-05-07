@@ -96,14 +96,38 @@
   </view>
 
   <view class="card-container">
-    <view class="card-container-weather">
+    <!-- 加载中状态 -->
+    <view class="card-container-weather" wx:if="{{isLoading}}">
+      <view class="card-container-weather-city">
+        {{school_information.location}}
+      </view>
+      <view class="weather-loading">
+        <view>加载天气信息中...</view>
+      </view>
+      <image class="card-container-wave" src="{{wave}}"></image>
+    </view>
+    
+    <!-- 加载失败状态 -->
+    <view class="card-container-weather" wx:elif="{{loadError}}">
+      <view class="card-container-weather-city">
+        {{school_information.location}}
+      </view>
+      <view class="weather-error">
+        <view>天气信息获取失败</view>
+        <view class="retry-button" bindtap="retryGetWeather">点击重试</view>
+      </view>
+      <image class="card-container-wave" src="{{wave}}"></image>
+    </view>
+    
+    <!-- 正常显示状态 -->
+    <view class="card-container-weather" wx:else>
       <view class="card-container-weather-city">
         {{school_information.location}}
       </view>
 
       <view class="card-container-weather-tmp">
         <view>{{now.temp}}°</view>
-        <image class="card-container-weather-tmp-icon" src="https://a.hecdn.net/img/common/icon/202106d/{{now.icon}}.png"></image>
+        <image class="card-container-weather-tmp-icon" src="/static/weather-icons/{{now.icon || '101'}}.svg"></image>
       </view>
 
       <view class="card-container-weather-info">
