@@ -147,25 +147,24 @@
 </view>
 
 <mp-dialog title="友情链接" show="{{dialogShow}}" bindbuttontap="mapmarker" buttons="{{buttons}}">
-  <view class="list-row">
-
-    <view class="list-row-container" bindtap="toschool">
-      <image class="list-row-container-img" src="{{school_icon}}" />
-      <view class="list-row-container-text">
+  <view class="link-grid">
+    <view class="link-item" bindtap="toschool">
+      <image class="link-icon" src="{{school_icon}}" />
+      <view class="link-text">
         学校官网
       </view>
     </view>
 
-    <view class="list-row-container" bindtap="tolibrary">
-      <image class="list-row-container-img" src="{{book}}" />
-      <view class="list-row-container-text">
+    <view class="link-item" bindtap="tolibrary">
+      <image class="link-icon" src="{{book}}" />
+      <view class="link-text">
         图书馆
       </view>
     </view>
 
-    <view class="list-row-container" bindtap="toacademic">
-      <image class="list-row-container-img" src="{{academic}}" />
-      <view class="list-row-container-text">
+    <view class="link-item" bindtap="toacademic">
+      <image class="link-icon" src="{{academic}}" />
+      <view class="link-text">
         教务系统
       </view>
     </view>

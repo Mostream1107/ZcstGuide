@@ -1,7 +1,103 @@
 /**app.wxss**/
+/* 全局配色变量 - 优化配色方案 */
 page {
+    /* 主色调升级 - 更鲜明的蓝色 */
+    --primary-color: #3e7bfa; /* 主色调 - 亮蓝色 */
+    --primary-light: #70a0ff; /* 主色调亮色 */
+    --primary-dark: #2952cc; /* 主色调暗色 */
+    
+    /* 强调色升级 - 更清新的青绿色 */
+    --accent-color: #26b999; /* 强调色 - 青绿色 */
+    --accent-light: #4ad9b5; /* 强调色亮色 */
+    --accent-dark: #159278; /* 强调色暗色 */
+    
+    /* 辅助色 - 增加视觉丰富度 */
+    --secondary-color: #ff7e5f; /* 辅助色 - 珊瑚色 */
+    --secondary-light: #ff9f87; /* 辅助色亮色 */
+    --secondary-dark: #e05e42; /* 辅助色暗色 */
+    
+    /* 中性色调优化 */
+    --text-primary: #2c3e50; /* 主要文本颜色 - 更深沉 */
+    --text-secondary: #5d7290; /* 次要文本颜色 - 更柔和 */
+    --background-color: #f9fafc; /* 背景色 - 更清爽 */
+    --card-color: #ffffff; /* 卡片背景色 */
+    --border-color: rgba(0, 0, 0, 0.08); /* 边框颜色 */
+    --shadow-color: rgba(0, 0, 0, 0.08); /* 阴影颜色 - 更轻柔 */
+    
     height: 100%;
     width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--text-primary);
+    background-color: var(--background-color);
+    line-height: 1.6;
+    padding-bottom: 20px;
+}
+
+/* 全局阴影样式 - 优化阴影效果 */
+.shadow-sm {
+    box-shadow: 0 4px 8px -2px var(--shadow-color);
+}
+
+.shadow {
+    box-shadow: 0 8px 16px -4px var(--shadow-color);
+}
+
+.shadow-lg {
+    box-shadow: 0 16px 24px -6px var(--shadow-color);
+}
+
+/* 卡片基础样式 */
+.card {
+    background-color: var(--card-color);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 16px -8px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 8px -4px var(--shadow-color);
+}
+
+/* 按钮基础样式 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 12px -4px rgba(62, 123, 250, 0.5);
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+    color: white;
+    box-shadow: 0 4px 12px -4px rgba(38, 185, 153, 0.5);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+    color: white;
+    box-shadow: 0 4px 12px -4px rgba(255, 126, 95, 0.5);
+}
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 6px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* 全局过渡效果 */
+.transition {
+    transition: all 0.3s ease;
 }
 
 .container {
@@ -14,10 +110,117 @@ page {
     box-sizing: border-box;
 }
 
+/* 底部字体样式优化 */
 .bottom-font {
-    padding: 10px 0 10px 0;
-    height: 20px;
+    padding: 20px 0 30px 0;
     text-align: center;
-    font-size: small;
-    color: gray;
+    font-size: 14px;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* 输入框样式 */
+.input-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px 16px;
+    transition: all 0.3s ease;
+}
+
+.input-box:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(62, 123, 250, 0.1);
+}
+
+/* 分割线样式 */
+.divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+    margin: 16px 0;
+}
+
+/* 徽章样式 */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-primary {
+    background-color: rgba(62, 123, 250, 0.1);
+    color: var(--primary-color);
+}
+
+.badge-accent {
+    background-color: rgba(38, 185, 153, 0.1);
+    color: var(--accent-color);
+}
+
+.badge-secondary {
+    background-color: rgba(255, 126, 95, 0.1);
+    color: var(--secondary-color);
+}
+
+/* 自定义对话框样式 - 现代化改进 */
+.weui-dialog {
+    border-radius: 20px !important;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.weui-dialog__hd {
+    padding: 24px 24px 16px !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+}
+
+.weui-dialog__title {
+    color: white !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+.weui-dialog__bd {
+    padding: 32px 24px 32px !important;
+}
+
+.weui-dialog__ft {
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.weui-dialog__btn {
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+}
+
+/* 半透明玻璃态效果 */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+}
+
+/* 渐变边框效果 */
+.gradient-border {
+    position: relative;
+    border-radius: 16px;
+    background: var(--card-color);
+}
+
+.gradient-border::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+    border-radius: 18px;
+    z-index: -1;
 }

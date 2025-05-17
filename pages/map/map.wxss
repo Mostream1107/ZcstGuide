@@ -1,66 +1,73 @@
 /* pages/map/map.wxss */
 .card {
-  height: 90px;
+  height: 100px;
   width: 100%;
   display: flex;
   justify-content: center;
-  /* align-items: flex-end; */
   align-items: center;
-  background-color: #f2f1ed;
+  background-color: rgba(242, 241, 237, 0.9);
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .card-top {
-  height: 80px;
+  height: 85px;
+  width: 92%;
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 16px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2)
+  box-shadow: 0 8px 20px -4px var(--shadow-color);
+  overflow: hidden;
 }
 
 .card-top-left {
   display: flex;
   flex-direction: column;
-  border-radius: 10px 0 0 10px;
+  flex: 1;
+  border-radius: 16px 0 0 16px;
 }
 
 .card-top-left-view {
   height: 50%;
-  margin-left: 10px;
+  margin-left: 15px;
   display: flex;
   align-items: center;
 }
 
 .up {
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid rgba(216, 216, 216, 0.5);
 }
 
 .card-top-circle {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .start {
-  background-color: #8e1d21;
+  background: linear-gradient(135deg, #ff6b6b, #8e1d21);
 }
 
 .end {
-  background-color: #404481;
+  background: linear-gradient(135deg, #5d78ff, #404481);
 }
 
 .card-top-input {
   letter-spacing: 1px;
-  /* width: 100%; */
+  font-size: 15px;
+  color: var(--text-primary);
+  width: 85%;
 }
 
 .card-top-middle {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0 10px 10px 0;
-  /* margin-left: 10px; */
 }
 
 .card-top-middle-button {
@@ -69,77 +76,92 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.card-top-middle-button:active {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 
 .card-top-right {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0 10px 10px 0;
-  /* margin-left: 10px; */
-  margin-right: 10px;
+  border-radius: 0 16px 16px 0;
+  margin-right: 15px;
 }
 
 .card-top-right-button {
-  background-color: #73a5d6;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
   color: white;
-  width: 70px;
-  height: 40px;
-  border-radius: 40px;
+  width: 75px;
+  height: 45px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(62, 123, 250, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card-top-right-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(62, 123, 250, 0.2);
 }
 
 .relative {
   position: relative;
-  height: 40px;
+  height: 45px;
   display: flex;
   justify-content: center;
 }
 
 .card-bottom-category {
   height: 100%;
-  /* background-color: #f0f0f099; */
+  width: 92%;
   text-align: center;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 25px;
+  box-shadow: 0 6px 16px -8px var(--shadow-color);
+  margin: 0 auto;
 }
 
 .card-bottom-category-label {
-  width: 71px;
-  height: 30px;
-  /* height: 40px; */
-  margin-left: 2px;
-  margin-right: 2px;
+  width: 72px;
+  height: 32px;
+  margin: 0 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border-bottom: 5px solid #f0f0f099; */
-  /* border-bottom: 5px solid transparent; */
-  font-weight: bold;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-radius: 20px;
+  transition: all 0.3s ease;
 }
 
 .choose {
-  /* border-bottom: 5px solid #404481; */
-  /* background-color: white; */
-  /* background-color: #ffffff99; */
-  /* background-color: #20b6a8; */
-  background-color: #39a096;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
   color: white;
-  border-radius: 20px;
-  font-weight: bold;
+  font-weight: 600;
+  box-shadow: 0 4px 10px -4px rgba(38, 185, 153, 0.4);
+  transform: translateY(-2px);
 }
 
 .map_right_card {
   height: auto;
   position: absolute;
-  right: 0px;
+  right: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  z-index: 5;
 }
 
 .location {
@@ -153,15 +175,16 @@
 .instruction {
   height: 55px;
   width: 55px;
-  background-color: transparent;
-  border-radius: 50%;
-  color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   margin-right: 5px;
-  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.instruction:active {
+  transform: scale(0.92);
 }
 
 .img {
@@ -171,51 +194,67 @@
   margin-right: 5px;
 }
 
+.history-icon {
+  font-size: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+
 .duration_and_distance {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .duration_and_distance_style {
   display: flex;
   align-items: flex-end;
-  font-size: larger;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
 .duration_and_distance_text {
   background-color: white;
-  padding: 8px;
+  padding: 10px 15px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px -6px var(--shadow-color);
 }
 
 .card-bottom {
-  /* height: 230px; */
   position: relative;
   width: 100%;
-  height: 50px;
-  background-color: #ffffff;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 -2px 10px -4px var(--shadow-color);
+  z-index: 10;
 }
 
 .card-bottom-button {
-  /* height: 35px; */
-  /* margin-top: 5px; */
-  /* padding: 5px 30px 5px 30px; */
-  padding: 5px;
-  width: 94%;
-  font-size: larger;
-  /* color: white; */
-  /* background-color: #1AAD19; */
-  /* background-color: #f0f0f0; */
-  color: #0152d6;
-  background-color: #f3f3ff;
-  border: 1px solid #0152d6;
-  border-radius: 10px;
+  padding: 12px;
+  width: 92%;
+  font-size: 16px;
+  color: white;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
+  box-shadow: 0 6px 16px -6px rgba(62, 123, 250, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card-bottom-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px -4px rgba(62, 123, 250, 0.3);
 }
 
 .road {
@@ -228,83 +267,154 @@
 }
 
 .road_start {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .road_end {
-  margin-top: 10px;
+  margin-top: 15px;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 /* 历史记录按钮 */
 .history-btn {
   width: 55px;
   height: 55px;
-  background-color: transparent;
+  background-color: white;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 5px;
-  margin-bottom: 10px;
-  color: #333;
-  box-shadow: none;
+  margin-bottom: 12px;
+  color: var(--accent-color);
+  box-shadow: 0 8px 15px -4px var(--shadow-color);
+  transition: all 0.3s ease;
 }
 
-.history-icon {
-  font-size: 40px;
-  margin-right: 10px;
-  cursor: pointer;
+.history-btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 4px 8px -3px var(--shadow-color);
 }
 
-/* 历史记录列表 */
-.history-list {
-  max-height: 400rpx;
-  overflow-y: auto;
+.route-list {
+  background: white;
+  border-radius: 16px;
+  padding: 15px;
+  margin: 15px;
+  box-shadow: 0 8px 16px -6px var(--shadow-color);
 }
 
-.history-empty {
-  padding: 30rpx;
-  text-align: center;
-  color: #999;
+.route-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.2s ease;
 }
 
-.history-item {
-  padding: 20rpx;
-  border-bottom: 1px solid #eee;
-  position: relative;
-  transition: background-color 0.3s;
+.route-item:active {
+  background-color: rgba(62, 123, 250, 0.05);
 }
 
-.history-item:active {
-  background-color: #f0f0f0;
+.route-item:last-child {
+  border-bottom: none;
 }
 
-.history-item-name {
-  font-weight: bold;
-  font-size: 28rpx;
-  margin-bottom: 10rpx;
-}
-
-.history-item-info {
+.route-head {
   display: flex;
   justify-content: space-between;
-  font-size: 24rpx;
-  color: #666;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-.history-item-category {
-  background-color: #f0f0f0;
-  padding: 4rpx 12rpx;
-  border-radius: 20rpx;
-  font-size: 22rpx;
+.route-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
-.history-item-time {
-  color: #999;
-  font-size: 22rpx;
+.route-distance {
+  color: var(--accent-color);
+  font-weight: 500;
+  font-size: 14px;
 }
 
-/* 底部历史记录按钮 */
+.route-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* 自定义地图标记样式 */
+.marker-container {
+  width: 36px;
+  height: 50px;
+  position: relative;
+}
+
+.marker-icon {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+}
+
+.marker-icon:active {
+  transform: scale(1.2);
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
+}
+
+.marker-label {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  color: var(--text-primary);
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 导航步骤列表 */
+.steps-container {
+  padding: 15px;
+}
+
+.step-item {
+  display: flex;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.step-icon {
+  width: 30px;
+  margin-right: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-instruction {
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.step-distance {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* 历史记录按钮 */
 .bottom-history-btn {
   position: absolute;
   right: 10px;

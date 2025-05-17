@@ -37,10 +37,10 @@
   </scroll-view>
 </view>
 
-<map style="width: 100%; height: calc(100% - 180px);" id="map"latitude="{{latitude}}" longitude="{{longitude}}" scale="{{scale}}" min-scale="{{minscale}}" show-location="{{showLocation}}" enable-poi="{{enablepoi}}" markers="{{markers}}" include-points="" polyline="{{polyline}}" polygons="{{polygons}}" bindmarkertap="markertap">
+<map style="width: 100%; height: calc(100% - 190px);" id="map"latitude="{{latitude}}" longitude="{{longitude}}" scale="{{scale}}" min-scale="{{minscale}}" show-location="{{showLocation}}" enable-poi="{{enablepoi}}" markers="{{markers}}" include-points="" polyline="{{polyline}}" polygons="{{polygons}}" bindmarkertap="markertap">
 
   <!-- 右侧按钮区域，垂直排列 -->
-  <view class="map_right_card" style="margin-top: calc(100vh - 440px);">
+  <view class="map_right_card" style="margin-top: calc(100vh - 450px);">
 
     <!-- 还原按钮 -->
     <view class="location">
@@ -72,7 +72,7 @@
 
   </view>
 
-  <view class="map_right_card" style="margin-top: calc(100vh - 245px);width: 100%;">
+  <view class="map_right_card" style="margin-top: calc(100vh - 255px);width: 100%;">
     <view class="duration_and_distance" style="width: 100%;">
       <view class="duration_and_distance_style">
         <view wx:if="{{polyline.length != 0}}" class="duration_and_distance_text">耗时：{{duration}}分钟 距离：{{distance}}米</view>
