@@ -149,32 +149,25 @@
 <mp-dialog title="友情链接" show="{{dialogShow}}" bindbuttontap="mapmarker" buttons="{{buttons}}">
   <view class="list-row">
 
-    <!-- <view class="list-row-container" bindtap="toschool">
+    <view class="list-row-container" bindtap="toschool">
       <image class="list-row-container-img" src="{{school_icon}}" />
       <view class="list-row-container-text">
-        学校
+        学校官网
       </view>
-    </view> -->
+    </view>
 
-    <!-- <view class="list-row-container" bindtap="tolibrary">
+    <view class="list-row-container" bindtap="tolibrary">
       <image class="list-row-container-img" src="{{book}}" />
       <view class="list-row-container-text">
         图书馆
       </view>
-    </view> -->
+    </view>
 
-    <!-- <view class="list-row-container" bindtap="tofinance">
-      <image class="list-row-container-img" src="{{money}}" />
+    <view class="list-row-container" bindtap="toacademic">
+      <image class="list-row-container-img" src="{{academic}}" />
       <view class="list-row-container-text">
-        财务处
+        教务系统
       </view>
-    </view> -->
-
-    <!-- <view class="list-row-container" bindtap="toMiniProgram">
-      <image class="list-row-container-img" src="{{magazine}}" />
-      <view class="list-row-container-text">
-        招生
-      </view>
-    </view> -->
+    </view>
   </view>
 </mp-dialog>

@@ -118,27 +118,30 @@
 }
 
 .list-row {
-  /* padding: 10px; */
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
+  padding: 20rpx 0;
 }
 
 .list-row-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  width: 30%;
+  margin: 15rpx 0;
 }
 
 .list-row-container-img {
-  width: 50px;
-  height: 50px;
+  width: 90rpx;
+  height: 90rpx;
 }
 
 .list-row-container-text {
-  font-size: 15px;
-  margin-top: 5px;
+  font-size: 28rpx;
+  margin-top: 10rpx;
+  color: #333;
 }
 
 .list-l {

@@ -11,6 +11,7 @@
 class LRUHistoryCache {
     constructor(capacity = 20) {
         this.capacity = capacity; // 缓存容量
+        
         this.cache = new Map(); // 主缓存，保持插入顺序
         this.frequencyMap = new Map(); // 记录每个地点的访问频率
         this.locationDetails = new Map(); // 存储地点详细信息

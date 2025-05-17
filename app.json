@@ -8,6 +8,7 @@
         "pages/site/site",
         "pages/school/school",
         "pages/school/guidance/guidance",
+        "pages/school/webview/webview",
         "pages/more/more",
         "pages/more/statement/statement",
         "pages/home/pano/pano"

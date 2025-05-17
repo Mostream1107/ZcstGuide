@@ -1,0 +1,4 @@
+<!--pages/school/webview/webview.wxml-->
+<view class="container">
+  <web-view src="{{url}}" bindload="loadSuccess" binderror="loadError"></web-view>
+</view> 

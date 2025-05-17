@@ -21,14 +21,12 @@ Page({
 
         school_icon: media.school_icon,
         book: media.book,
-        money: media.money,
+        academic: media.academic,
 
         wave: media.wave,
 
-
         label: media.label,
 
-        magazine: media.magazine,
         school: media.school,
         information: media.information,
         notes: media.notes,
@@ -109,41 +107,24 @@ Page({
         })
     },
 
-    // 学校官微
+    // 跳转到学校官网
     toschool() {
-        wx.previewImage({
-            current: this.data.guanwei[0],
-            urls: this.data.guanwei
+        wx.navigateTo({
+            url: '../school/webview/webview?url=https://www.zcst.edu.cn/',
         })
     },
 
-    // 图书馆官微
+    // 跳转到图书馆
     tolibrary() {
-        wx.previewImage({
-            current: this.data.guanwei[1],
-            urls: this.data.guanwei
+        wx.navigateTo({
+            url: '../school/webview/webview?url=https://library.zcst.edu.cn/',
         })
     },
 
-    // 财务处官微
-    tofinance() {
-        wx.previewImage({
-            current: this.data.guanwei[2],
-            urls: this.data.guanwei
-        })
-    },
-
-
-    // 招生官微
-    toMiniProgram() {
-        wx.navigateToMiniProgram({
-            appId: this.data.AppID,
-            success(res) {
-                // console.log("打开成功")
-            },
-            fail(res) {
-                // console.log("打开失败")
-            }
+    // 跳转到教务系统
+    toacademic() {
+        wx.navigateTo({
+            url: '../school/webview/webview?url=https://jw.zcst.edu.cn/xtgl/login_slogin.html',
         })
     },
 
